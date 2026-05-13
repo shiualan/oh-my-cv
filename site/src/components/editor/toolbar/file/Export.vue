@@ -20,7 +20,11 @@
               (<SharedIssueLink issue="13" />, <SharedIssueLink issue="16" />)
             </span>
           </UiAlertTitle>
-          <UiAlertDescription v-html="$t('toolbar.file.export_pdf.alert.content')" />
+          <UiAlertDescription>
+            {{ $t("toolbar.file.export_pdf.alert.content_before") }}
+            <b>{{ $t("toolbar.file.export_pdf.alert.content_not") }}</b>
+            {{ $t("toolbar.file.export_pdf.alert.content_after") }}
+          </UiAlertDescription>
         </UiAlert>
       </UiTooltipContent>
     </UiTooltip>

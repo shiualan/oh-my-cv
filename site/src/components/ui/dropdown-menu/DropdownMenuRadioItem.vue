@@ -17,7 +17,8 @@ const props = defineProps<
 const emits = defineEmits<DropdownMenuRadioItemEmits>();
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const delegated = { ...props };
+  delete delegated.class;
 
   return delegated;
 });

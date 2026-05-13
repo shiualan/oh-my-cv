@@ -1,6 +1,7 @@
 import { injectCss } from "@ohmycv/dynamic-css";
 import { useConstant } from "~/composables/constant";
 import type { ResumeStyles } from "~/composables/stores/style";
+import { sanitizeResumeCss } from "./sanitize";
 
 const { RENDER } = useConstant();
 
@@ -87,6 +88,8 @@ export class DynamicCssService {
    * provided, it will be set to "preview", which is the preview view in the editor.
    */
   public injectCssEditor(css: string, id?: string | number) {
+    css = sanitizeResumeCss(css);
+
     if (id !== undefined) {
       // To control each resume element (dashboard) separately
       css = css.replaceAll(RENDER.PREVIEW_SELECTOR, this._selector(id));

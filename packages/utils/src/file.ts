@@ -1,16 +1,61 @@
 import type { Callback } from "./types";
 
-export const fetchFile = async (url: string): Promise<string> => {
+export type FetchFileOptions = {
+  maxBytes?: number;
+  timeoutMs?: number;
+};
+
+const DEFAULT_FETCH_FILE_OPTIONS = {
+  maxBytes: 512 * 1024,
+  timeoutMs: 10000
+};
+
+const assertAllowedRemoteFileUrl = (url: string) => {
+  const parsedUrl = new URL(url);
+  const isLocalHttp =
+    parsedUrl.protocol === "http:" &&
+    ["localhost", "127.0.0.1", "::1", "[::1]"].includes(parsedUrl.hostname);
+
+  if (parsedUrl.protocol !== "https:" && !isLocalHttp) {
+    throw new Error("Only HTTPS URLs can be imported.");
+  }
+
+  return parsedUrl;
+};
+
+export const fetchFile = async (
+  url: string,
+  options: FetchFileOptions = {}
+): Promise<string> => {
+  const { maxBytes, timeoutMs } = { ...DEFAULT_FETCH_FILE_OPTIONS, ...options };
+  const parsedUrl = assertAllowedRemoteFileUrl(url);
+  const controller = new AbortController();
+  const timeout = globalThis.setTimeout(() => controller.abort(), timeoutMs);
+
   try {
-    const res = await fetch(url);
+    const res = await fetch(parsedUrl.href, { signal: controller.signal });
 
     if (!res.ok) {
       throw new Error(`Request error: ${res.status} ${res.statusText}`);
     }
 
-    return await res.text();
+    const contentLength = Number(res.headers.get("content-length"));
+
+    if (contentLength > maxBytes) {
+      throw new Error(`Imported file must be ${maxBytes} bytes or smaller.`);
+    }
+
+    const text = await res.text();
+
+    if (new Blob([text]).size > maxBytes) {
+      throw new Error(`Imported file must be ${maxBytes} bytes or smaller.`);
+    }
+
+    return text;
   } catch (error) {
     return Promise.reject(error instanceof Error ? error : new Error(String(error)));
+  } finally {
+    globalThis.clearTimeout(timeout);
   }
 };
 
@@ -26,7 +71,7 @@ export const useFileDialog = (accept?: string) => {
 
   let input: HTMLInputElement | undefined;
 
-  if (document) {
+  if (typeof document !== "undefined") {
     input = document.createElement("input");
 
     input.type = "file";
@@ -65,8 +110,13 @@ export const useFileDialog = (accept?: string) => {
  * @param file File object
  * @returns Promise containing file content as string
  */
-export const readFile = (file: File): Promise<string> => {
+export const readFile = (file: File, maxBytes = 512 * 1024): Promise<string> => {
   return new Promise((resolve, reject) => {
+    if (file.size > maxBytes) {
+      reject(new Error(`Imported file must be ${maxBytes} bytes or smaller.`));
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onload = () => resolve(reader.result as string);

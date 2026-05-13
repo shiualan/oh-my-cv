@@ -1,0 +1,32 @@
+# Oh My CV! Fork Notice
+
+This repository is a modified fork of Oh My CV!, originally created by
+Renovamen <renovamenzxh@gmail.com> and published at:
+
+https://github.com/Renovamen/oh-my-cv
+
+This fork is maintained at:
+
+https://github.com/shiualan/oh-my-cv
+
+## License
+
+The combined project is distributed under the GNU General Public License
+version 3. See LICENSE for the full license text. The program is distributed
+without warranty, to the extent permitted by law.
+
+## Modification Notice
+
+Modified files in this fork should be reviewed through the Git history. As of
+2026-05-14, the fork maintainers added browser-side security hardening, Vercel
+deployment configuration, GPL/source notices, and fork repository links.
+
+## Attribution
+
+Original project credits are preserved for:
+
+- billryan/resume
+- Iconify
+- KaTeX
+- localForage
+- Nuxt, Vue, Vite, Radix Vue, Zag, and UnoCSS

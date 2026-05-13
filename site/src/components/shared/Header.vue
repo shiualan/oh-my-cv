@@ -49,15 +49,26 @@
 
       <slot name="tail" />
 
+      <UiButton
+        :as="NuxtLink"
+        :to="$nuxt.$localePath('/legal')"
+        variant="ghost-secondary"
+        size="round"
+        :aria-label="$t('legal_notices')"
+      >
+        <span i-tabler:license text-lg />
+      </UiButton>
+
       <SharedToggleDark />
 
       <UiButton
         as="a"
         variant="ghost-secondary"
         size="round"
-        href="http://github.com/Renovamen/oh-my-cv"
+        href="https://github.com/shiualan/oh-my-cv"
         target="_blank"
-        rel="nofollow noopener"
+        rel="noopener noreferrer"
+        aria-label="GitHub repository"
       >
         <span i-tabler:brand-github text-lg />
       </UiButton>

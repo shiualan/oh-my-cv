@@ -7,7 +7,10 @@
       p="x-5 t-30 md:x-20 lt-sm:b-10"
     >
       <div text-center>
-        <h1 text="3xl sm:4xl" v-html="$t('landing.hero')" />
+        <h1 text="3xl sm:4xl">
+          {{ landingHero.prefix }}<span text-primary>{{ landingHero.highlight }}</span
+          >{{ landingHero.suffix }}
+        </h1>
         <div my-10 text="lg sm:xl"><SharedBrandName /> {{ $t("landing.desc") }}</div>
 
         <UiButton
@@ -39,8 +42,20 @@
               <li
                 v-for="line in $t(`landing.feats[${i}].items`).split('<br>')"
                 :key="line"
-                v-html="line"
-              />
+              >
+                {{ line }}
+              </li>
+              <li v-if="i === 0">
+                {{ $t("landing.more_prefix") }}
+                <a
+                  class="text-primary hover:underline"
+                  href="https://github.com/shiualan/oh-my-cv#features"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{ $t("landing.more_link") }}
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -51,4 +66,12 @@
 
 <script setup lang="ts">
 import { NuxtLink } from "#components";
+
+const { t } = useI18n();
+
+const landingHero = computed(() => ({
+  prefix: t("landing.hero_prefix"),
+  highlight: t("landing.hero_highlight"),
+  suffix: t("landing.hero_suffix")
+}));
 </script>

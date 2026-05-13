@@ -2,13 +2,13 @@
   "name": "@renovamen/utils",
   "version": "0.1.1",
   "description": "Useful utils, zero dependencies.",
-  "homepage": "https://github.com/Renovamen/oh-my-cv/tree/main/packages/utils",
+  "homepage": "https://github.com/shiualan/oh-my-cv/tree/main/packages/utils",
   "bugs": {
-    "url": "https://github.com/Renovamen/oh-my-cv"
+    "url": "https://github.com/shiualan/oh-my-cv/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Renovamen/oh-my-cv.git",
+    "url": "git+https://github.com/shiualan/oh-my-cv.git",
     "directory": "packages/utils"
   },
   "license": "MIT",

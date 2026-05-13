@@ -11,6 +11,7 @@ export const pwa: ModuleOptions = {
     scope,
     name: "Oh My CV!",
     short_name: "Oh My CV!",
+    theme_color: "#f3f4f6",
     icons: [
       {
         src: "/pwa-192x192.png",

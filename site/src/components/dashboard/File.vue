@@ -22,12 +22,18 @@ const emits = defineEmits<{
   (e: "update"): void;
 }>();
 
+const MAX_JSON_IMPORT_BYTES = 2 * 1024 * 1024;
+
 const { open, onChange } = useFileDialog(".json");
 
 onChange(async (file) => {
-  const content = await readFile(file);
-  await storageService.importFromJson(content);
-  emits("update");
+  try {
+    const content = await readFile(file, MAX_JSON_IMPORT_BYTES);
+    await storageService.importFromJson(content);
+    emits("update");
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 const exportToJSON = () => storageService.exportToJSON();

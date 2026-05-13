@@ -63,6 +63,7 @@ import { normalizeProps, useMachine } from "@zag-js/vue";
 import { fetchFile } from "@renovamen/utils";
 
 const { setAndSyncToMonaco } = useDataStore();
+const MAX_MARKDOWN_IMPORT_BYTES = 512 * 1024;
 
 // Zag.js file component
 const localFile = ref<string | null>(null);
@@ -72,6 +73,11 @@ const [state, send] = useMachine(
     id: "import-dialog",
     accept: ".md",
     onFileAccept: ({ files }) => {
+      if (files[0].size > MAX_MARKDOWN_IMPORT_BYTES) {
+        console.error("Import error: Markdown file is too large.");
+        return;
+      }
+
       const reader = new FileReader();
 
       reader.onloadend = () => {

@@ -16,6 +16,18 @@ const _anchorId = (tokens: Token[], idx: number) =>
 
 const _anchorLabel = (tokens: Token[], idx: number) => tokens[idx].meta.label;
 
+const _escapeHtml = (value: string) => {
+  const escapeMap: Record<string, string> = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "'": "&#39;",
+    '"': "&quot;"
+  };
+
+  return value.replace(/[&<>'"]/g, (char) => escapeMap[char]);
+};
+
 const _isOpen = (state: StateBlock | StateInline, start: number) => {
   return (
     state.src.charCodeAt(start) === 0x5b /* [ */ &&
@@ -35,7 +47,7 @@ const render =
   (type: "defOpen" | "ref"): Renderer.RenderRule =>
   (tokens, idx) => {
     const id = `cross-ref-${_anchorId(tokens, idx)}`;
-    const label = _anchorLabel(tokens, idx);
+    const label = _escapeHtml(_anchorLabel(tokens, idx));
 
     return type === "ref"
       ? `<sup data-scope="cross-ref" data-part="reference"><a data-scope="cross-ref" data-part="link" href="#${id}" id="${id}">${label}</a></sup>`

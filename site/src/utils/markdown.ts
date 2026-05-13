@@ -11,6 +11,8 @@ import MarkdownItKatex from "@ohmycv/markdown-it-katex";
 import MarkdownItCite from "@ohmycv/markdown-it-cross-ref";
 import MarkdownItLatexCmds from "@ohmycv/markdown-it-latex-cmds";
 import { FrontMatterParser } from "@ohmycv/front-matter";
+import { htmlEscape } from "@renovamen/utils";
+import { sanitizeResumeHtml } from "./sanitize";
 
 type ResumeHeaderItem = {
   readonly text: string;
@@ -24,7 +26,7 @@ type ResumeFrontMatter = {
 };
 
 type MarkdownItPlugins = Array<
-  PluginSimple | PluginWithOptions | [PluginWithOptions, any]
+  PluginSimple | PluginWithOptions | [PluginWithOptions, unknown]
 >;
 
 type MarkdownServiceOptions = {
@@ -89,8 +91,9 @@ export class MarkdownService {
   }
 
   private _renderHeaderItem(item: ResumeHeaderItem, hasSeparator: boolean) {
+    const link = item.link ? htmlEscape(item.link) : "";
     const content = item.link
-      ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.text}</a>`
+      ? `<a href="${link}" target="_blank" rel="noopener noreferrer">${item.text}</a>`
       : item.text;
 
     const element = `<span class="resume-header-item ${hasSeparator ? "" : "no-separator"}">
@@ -119,7 +122,7 @@ export class MarkdownService {
     const content = this._resolveDeflist(this._renderMarkdown(body));
     const header = this.renderHeader(frontMatter);
 
-    return header + content;
+    return sanitizeResumeHtml(header + content);
   }
 }
 
@@ -135,7 +138,7 @@ export const markdownService = new MarkdownService({
         matcher: (link: string) => /^https?:\/\//.test(link),
         attrs: {
           target: "_blank",
-          rel: "noopener"
+          rel: "noopener noreferrer"
         }
       }
     ]

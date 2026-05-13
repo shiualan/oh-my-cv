@@ -3,6 +3,7 @@ lang: Idioma
 toggle_theme: Cambiar tema claro/oscuro
 open_toolbar: Abrir barra de herramientas
 close_toolbar: Cerrar barra de herramientas
+legal_notices: Avisos legales
 
 head:
   title: Oh My CV! - Generador de CV online GRATUITO!!
@@ -10,12 +11,16 @@ head:
   keywords: generador curriculum, generador cv, generador curriculum vitae, curriculum markdown, markdown cv
 
 landing:
-  hero: Escribe tu <span text-primary>curriculum vitae</span> en Markdown!
+  hero_prefix: "Escribe tu "
+  hero_highlight: curriculum vitae
+  hero_suffix: " en Markdown!"
   desc: es una herramienta gratuita y de código abierto creada para crear y administrar sus currículums de la manera más fácil posible, sin perder la privacidad de sus datos.
   start: Crear My Resumen
+  more_prefix: "Y "
+  more_link: más funciones
   feats:
     - title: Simple y poderoso
-      items: Administra multiples curriculums con <br>Vista previa en tiempo real<br>Exportar a PDF format<br>Completamente configurable<br>Elige fuentes y agrega íconos<br>Y <a href="https://github.com/Renovamen/oh-my-cv#features" target="_blank">más funciones</a>
+      items: Administra multiples curriculums con <br>Vista previa en tiempo real<br>Exportar a PDF format<br>Completamente configurable<br>Elige fuentes y agrega íconos
     - title: Primero tu privacidad
       items: Open source, libre y gratuito<br>Información guardada en tu equipo<br>No necesita que te registres<br>No realizamos ningún trackeo ni mostramos publicidad<br>No ads
 
@@ -45,7 +50,9 @@ toolbar:
       title: Exportar PDF
       alert:
         title: ¡Atención!
-        content: Al imprimir en Windows, seleccione "Guardar como PDF" en la ventana emergente de configuración de impresión, <b>no</b> "Microsoft Print to PDF".
+        content_before: Al imprimir en Windows, seleccione "Guardar como PDF" en la ventana emergente de configuración de impresión,
+        content_not: no
+        content_after: '"Microsoft Print to PDF".'
     export_md: Exportar Markdown
   correct_case:
     title: Corregir Mayusculas
@@ -56,7 +63,7 @@ toolbar:
     note:
       title: Nota
       content: No se modificarán las palabras que sólo contengan mayúsculas o minúsculas ("GITHUB" or "github").
-    btn : Corrígelo!
+    btn: Corrígelo!
   paper_size: Tamaño de hoja
   theme_color: Color y tema
   font_family:
@@ -79,7 +86,7 @@ notification:
   duplicate: Created resume "{old}"'s duplication "{new}"
   correct:
     yes: Corregidos {num} palabras
-    no : Buen trabajo, no hubo nada que corregir!
+    no: Buen trabajo, no hubo nada que corregir!
   import:
     yes: Datos importados correctamente!
-    no : Formato de datos inválido.
+    no: Formato de datos inválido.
