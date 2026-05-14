@@ -100,7 +100,7 @@ Use these settings if configuring the project manually:
 - Framework preset: Nuxt.js
 - Install command: `pnpm install --frozen-lockfile`
 - Build command: `pnpm release`
-- Output directory: `site/.output/public`
+- Output directory: leave unset. Nuxt/Nitro writes Vercel Build Output API files to `.vercel/output` during Vercel builds.
 - Node.js version: 20+
 
 Optional environment variable:
@@ -110,7 +110,7 @@ NUXT_PUBLIC_GOOGLE_FONTS_KEY="YOUR_API_KEY"
 NUXT_PUBLIC_SITE_URL="https://your-vercel-domain.example"
 ```
 
-The Vercel config also sets a Content Security Policy and other browser security headers for the static site.
+The Vercel config also sets a Content Security Policy and other browser security headers for the static site. Do not add a Vercel Output Directory override in the dashboard, because the Nuxt/Vercel preset owns that output.
 
 ## GPL Compliance Notes
 

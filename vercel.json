@@ -1,7 +1,6 @@
 {
   "buildCommand": "pnpm release",
   "installCommand": "pnpm install --frozen-lockfile",
-  "outputDirectory": "site/.output/public",
   "framework": "nuxtjs",
   "headers": [
     {
