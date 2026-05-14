@@ -64,7 +64,7 @@
         <h2 class="text-xl font-semibold text-foreground">Modified Version</h2>
         <p>
           This fork was modified on 2026-05-14 by the fork maintainers to add browser-side
-          security hardening, Vercel deployment configuration, GPL notices, and fork
+          security hardening, local/static hosting documentation, GPL notices, and fork
           source links.
         </p>
         <p>

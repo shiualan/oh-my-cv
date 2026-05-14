@@ -18,8 +18,8 @@ without warranty, to the extent permitted by law.
 ## Modification Notice
 
 Modified files in this fork should be reviewed through the Git history. As of
-2026-05-14, the fork maintainers added browser-side security hardening, Vercel
-deployment configuration, GPL/source notices, and fork repository links.
+2026-05-14, the fork maintainers added browser-side security hardening,
+local/static hosting documentation, GPL/source notices, and fork repository links.
 
 ## Attribution
 

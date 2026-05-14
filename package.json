@@ -21,7 +21,6 @@
     "dev": "pnpm --filter=site dev",
     "lint": "eslint .",
     "release": "pnpm build:pkg && pnpm build",
-    "vercel:build": "pnpm release && node scripts/prepare-vercel-output.mjs",
     "release:pkg": "pnpm release:pkg:check && pnpm release:pkg:version && pnpm -r publish",
     "release:pkg:check": "pnpm lint && pnpm build:pkg",
     "release:pkg:version": "bumpp package.json packages/*/package.json --commit \"build: publish v%s\" --all --tag --push",

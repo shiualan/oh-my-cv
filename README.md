@@ -2,7 +2,7 @@
 
 Microsoft Word and LaTeX can be too much machinery for a resume. Oh My CV! lets you write a resume in Markdown, preview it live, customize the styling, and export it to PDF.
 
-This repository keeps the original project attribution intact and adds browser-side security hardening, GPL/source notices, and a Vercel-ready deployment configuration.
+This repository keeps the original project attribution intact and adds browser-side security hardening, GPL/source notices, and local/static hosting documentation.
 
 Try the original app: [ohmycv.app](https://ohmycv.app/)
 
@@ -36,7 +36,7 @@ This version hardens the browser rendering path while preserving the Markdown re
 - Limits imported Markdown and JSON backup file sizes.
 - Restricts remote Markdown imports to HTTPS, with localhost HTTP allowed for development.
 - Adds safer external-link attributes.
-- Adds Vercel security headers through `vercel.json`.
+- Documents browser security expectations for local and static hosting.
 
 The local `SECURITY.md` review artifact contains the detailed threat model, findings, fixes, and remaining notes. It is intentionally ignored by Git in this fork per maintainer request.
 
@@ -91,26 +91,32 @@ To enable Google Fonts selection, create `site/.env` and add:
 NUXT_PUBLIC_GOOGLE_FONTS_KEY="YOUR_API_KEY"
 ```
 
-## Deploying To Vercel
+## Local Static Hosting
 
-This repo includes `vercel.json`, so Vercel can deploy from the repository root.
+This fork is intended to be built and hosted as a local/static web app.
 
-Use these settings if configuring the project manually:
+Build the static app:
 
-- Framework preset: Nuxt.js
-- Install command: `pnpm install --frozen-lockfile`
-- Build command: `pnpm vercel:build`
-- Output directory: leave unset
-- Node.js version: 20+
+```bash
+pnpm release
+```
+
+Serve the generated app:
+
+```bash
+pnpm serve
+```
+
+For another static host, publish the generated `site/.output/public` directory.
 
 Optional environment variable:
 
 ```bash
 NUXT_PUBLIC_GOOGLE_FONTS_KEY="YOUR_API_KEY"
-NUXT_PUBLIC_SITE_URL="https://your-vercel-domain.example"
+NUXT_PUBLIC_SITE_URL="https://your-host.example"
 ```
 
-The Vercel build step copies Nuxt's generated Vercel Build Output API bundle from `site/.vercel/output` to the repository root at `.vercel/output`, then patches that bundle with the browser security headers and editor route fallbacks. If Vercel's Project Settings has an Output Directory override, remove it; do not set it to `dist`, `public`, `site/.output/public`, or `site/.vercel/output/static`.
+When hosting the static build yourself, configure equivalent browser security headers at the web server or reverse proxy layer. At minimum, use a restrictive Content Security Policy, `Referrer-Policy: strict-origin-when-cross-origin`, `X-Content-Type-Options: nosniff`, and disable unused browser permissions.
 
 ## GPL Compliance Notes
 
