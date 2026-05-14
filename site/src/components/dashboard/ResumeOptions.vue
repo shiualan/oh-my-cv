@@ -1,9 +1,10 @@
 <template>
   <div flex="~ col gap-y-2" items-end>
     <UiButton
+      type="button"
       size="round"
       class="group/btn gap-x-1 transition-all bg-gray-500/90 hover:(bg-gray-500 ring-none w-auto px-2) focus-visible:(w-auto px-2)"
-      @click="duplicate"
+      @click.stop="duplicate"
       :aria-label="$t('dashboard.duplicate')"
     >
       <span i-ion:duplicate />
@@ -13,10 +14,11 @@
     </UiButton>
 
     <UiButton
+      type="button"
       size="round"
       variant="destructive"
       class="group/btn gap-x-1 transition-all bg-destructive/90 hover:(bg-destructive w-auto px-2) focus-visible:(w-auto px-2)"
-      @click="remove"
+      @click.stop="remove"
       :aria-label="$t('dashboard.delete')"
     >
       <span i-material-symbols:delete-outline-rounded />
