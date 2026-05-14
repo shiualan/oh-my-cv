@@ -22,15 +22,18 @@
   "license": "MIT",
   "author": "Renovamen <renovamenzxh@gmail.com>",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "exports": {
-    "types": "./dist/index.d.ts",
-    "require": "./dist/index.js",
-    "import": "./dist/index.mjs"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./src/index.ts",
+      "require": "./dist/index.js"
+    }
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build-fast:pkg": "tsup src/index.ts --format cjs,esm",
