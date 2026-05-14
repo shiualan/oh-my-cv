@@ -9,7 +9,7 @@ export type IsAny<T> = IfAny<T, true, false>;
 
 export type Callback<T> =
   IsAny<T> extends true
-    ? (param: any) => void
+    ? (param: unknown) => void
     : [T] extends [void]
       ? () => void
       : (param: T) => void;

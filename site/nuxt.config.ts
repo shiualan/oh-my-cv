@@ -1,9 +1,18 @@
 import { pwa } from "./configs/pwa";
 import { i18n } from "./configs/i18n";
 
+const siteUrl =
+  process.env.NUXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "https://shiualan.github.io");
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   srcDir: "src/",
+  compatibilityDate: "2026-05-13",
 
   modules: [
     "@vueuse/nuxt",
@@ -52,14 +61,14 @@ export default defineNuxtConfig({
         { name: "application-name", content: "Oh My CV!" },
         { name: "apple-mobile-web-app-title", content: "Oh My CV!" },
         { name: "msapplication-TileColor", content: "#fff" },
-        { property: "og:url", content: "https://ohmycv.app" },
+        { property: "og:url", content: siteUrl },
         { property: "og:type", content: "website" }
       ]
     }
   },
 
   site: {
-    url: "https://ohmycv.app"
+    url: siteUrl
   },
 
   pwa

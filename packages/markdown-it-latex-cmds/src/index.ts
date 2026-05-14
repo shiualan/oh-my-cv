@@ -8,6 +8,8 @@ const renderNewPage: Renderer.RenderRule = () => `<div class="md-it-newpage"></d
 const renderLineBreak: Renderer.RenderRule = (tokens, idx) =>
   `<div class="md-it-line-break" style="margin-top:${tokens[idx].meta.h};"></div>`;
 
+const SAFE_LENGTH_RE = /^(?:0|(?:\d+|\d*\.\d+)(?:px|em|rem|pt|pc|mm|cm|in|%))$/i;
+
 const checkPattern = (
   state: StateBlock,
   start: number,
@@ -72,6 +74,7 @@ const lineBreak: ParserBlock.RuleBlock = (state, start, end, silent) => {
   const height = state.src.slice(pos + 3, lastPos);
   // Don't allow unescaped spaces/newlines inside
   if (height.match(/(^|[^\\])(\\\\)*\s/)) return false;
+  if (!SAFE_LENGTH_RE.test(height)) return false;
 
   // Skip "\\[x]"
   state.line = start + 1;

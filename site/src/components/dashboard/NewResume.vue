@@ -18,6 +18,6 @@ const newAndSwitch = async () => {
   const data = await storageService.createResume();
 
   if (!data) return;
-  else router.push(localePath(`/editor/${data.id}`));
+  else await router.push(localePath(`/editor/${data.id}`));
 };
 </script>

@@ -7,13 +7,13 @@
     "front matter",
     "meta data"
   ],
-  "homepage": "https://github.com/Renovamen/oh-my-cv/tree/main/packages/front-matter",
+  "homepage": "https://github.com/shiualan/oh-my-cv/tree/main/packages/front-matter",
   "bugs": {
-    "url": "https://github.com/Renovamen/oh-my-cv"
+    "url": "https://github.com/shiualan/oh-my-cv/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Renovamen/oh-my-cv.git",
+    "url": "git+https://github.com/shiualan/oh-my-cv.git",
     "directory": "packages/front-matter"
   },
   "license": "MIT",
@@ -34,7 +34,7 @@
     "build:pkg": "pnpm run build-fast:pkg --dts"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.1"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",

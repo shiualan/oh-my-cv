@@ -18,7 +18,8 @@ const props = withDefaults(
 const emits = defineEmits<DropdownMenuContentEmits>();
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
+  const delegated = { ...props };
+  delete delegated.class;
 
   return delegated;
 });

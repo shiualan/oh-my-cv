@@ -35,16 +35,18 @@ export const setResume = async (data: DbResume) => {
   await setResumeStyles(data.styles);
 };
 
-const _checkType = (value: any, required: string | string[]) => {
+const _checkType = (value: unknown, required: string | string[]) => {
   return arrayify(required).includes(typeof value);
 };
 
-const _getNestedValue = (object: any, path: string) => {
-  return path.split(".").reduce((o, p) => (o ? o[p] : undefined), object);
+const _getNestedValue = (object: unknown, path: string) => {
+  return path.split(".").reduce<unknown>((o, p) => {
+    return isObject(o) ? o[p] : undefined;
+  }, object);
 };
 
 const _checkObject = (
-  obj: any,
+  obj: unknown,
   fields: Array<{ fields: string | string[]; types: string | string[] }>
 ): boolean => {
   return fields.every(({ fields, types }) =>
@@ -53,12 +55,12 @@ const _checkObject = (
 };
 
 export class IsValid {
-  static font = (font: any) =>
+  static font = (font: unknown) =>
     isObject(font) &&
     typeof font.name === "string" &&
     ["string", "undefined"].includes(typeof font.fontFamily);
 
-  static importedData = (data: any, version: any) => {
+  static importedData = (data: unknown, version: unknown) => {
     const { VERSION } = useConstant();
 
     return (
@@ -76,7 +78,7 @@ export class IsValid {
   };
 
   static importedJson(
-    json: any
+    json: unknown
   ): false | { version: ValidVersion; data: ValidStorageJsonData } {
     const { VERSION } = useConstant();
 

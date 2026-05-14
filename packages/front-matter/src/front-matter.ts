@@ -13,6 +13,7 @@ const PATTERN =
   "$" +
   (PLATFORM === "win32" ? "\\r?" : "") +
   "(?:\\n)?)";
+const DEFAULT_MAX_FRONT_MATTER_CHARS = 64 * 1024;
 
 export interface FrontMatterResults<T> {
   /**
@@ -45,15 +46,23 @@ export interface FrontMatterOptions {
    * @default "error"
    */
   errorBehavior?: "last" | "empty" | "error";
+
+  /**
+   * Maximum number of characters accepted in the YAML front matter block.
+   * @default 65536
+   */
+  maxFrontMatterChars?: number;
 }
 
-export class FrontMatterParser<T = { [key: string]: any }> {
+export class FrontMatterParser<T = Record<string, unknown>> {
   private options: FrontMatterOptions;
   private _lastFrontMatter: T = {} as T;
 
   constructor(options: FrontMatterOptions = {}) {
     this.options = options;
     this.options.errorBehavior = options.errorBehavior || "error";
+    this.options.maxFrontMatterChars =
+      options.maxFrontMatterChars || DEFAULT_MAX_FRONT_MATTER_CHARS;
   }
 
   private _emptyResults = (body: string) => ({
@@ -103,7 +112,13 @@ export class FrontMatterParser<T = { [key: string]: any }> {
     if (!split) return this._emptyResults(content);
 
     try {
-      const frontMatter = (yamlParser.load(split.frontMatterString) || {}) as T;
+      if (split.frontMatterString.length > this.options.maxFrontMatterChars!) {
+        throw new Error("Front matter is too large.");
+      }
+
+      const frontMatter = (yamlParser.load(split.frontMatterString, {
+        schema: yamlParser.JSON_SCHEMA
+      }) || {}) as T;
       this._lastFrontMatter = frontMatter;
 
       return { ...split, frontMatter };

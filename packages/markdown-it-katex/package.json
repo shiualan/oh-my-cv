@@ -10,13 +10,13 @@
     "markdown-it-plugin",
     "markdown-it"
   ],
-  "homepage": "https://github.com/Renovamen/oh-my-cv/tree/main/packages/markdown-it-katex",
+  "homepage": "https://github.com/shiualan/oh-my-cv/tree/main/packages/markdown-it-katex",
   "bugs": {
-    "url": "https://github.com/Renovamen/oh-my-cv"
+    "url": "https://github.com/shiualan/oh-my-cv/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Renovamen/oh-my-cv.git",
+    "url": "git+https://github.com/shiualan/oh-my-cv.git",
     "directory": "packages/markdown-it-katex"
   },
   "license": "MIT",
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@renovamen/utils": "workspace:*",
-    "katex": "^0.16.11"
+    "katex": "^0.16.21"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",
