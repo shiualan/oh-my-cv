@@ -1,7 +1,27 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "pnpm release",
   "installCommand": "pnpm install --frozen-lockfile",
+  "outputDirectory": "site/.vercel/output/static",
   "framework": "nuxtjs",
+  "rewrites": [
+    {
+      "source": "/editor/:path*",
+      "destination": "/200.html"
+    },
+    {
+      "source": "/en/editor/:path*",
+      "destination": "/200.html"
+    },
+    {
+      "source": "/sp/editor/:path*",
+      "destination": "/200.html"
+    },
+    {
+      "source": "/zh-cn/editor/:path*",
+      "destination": "/200.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
